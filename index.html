@@ -89,7 +89,7 @@
   .patient-fields{
     padding:16px 28px;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:10px 18px;
     background:#f7fafb;
     border-bottom:1px solid var(--line);
@@ -98,6 +98,7 @@
     display:flex;
     flex-direction:column;
     gap:3px;
+    min-width:0;
   }
   .patient-fields label{
     font-size:10.5px;
@@ -107,6 +108,8 @@
     font-weight:600;
   }
   .patient-fields input{
+    width: 100%;
+    min-width:0;
     border:none;
     border-bottom:1.5px solid var(--line);
     padding:4px 2px;
@@ -114,6 +117,15 @@
     background:transparent;
     font-family:inherit;
   }
+/* new: stack into one readable column on phones */
+@media (max-width:640px){
+  .patient-fields{
+    grid-template-columns:1fr;
+    padding:14px 18px;
+  }
+  .field.wide{grid-column:auto;}
+}
+
   .patient-fields input:focus{
     outline:none;
     border-bottom-color:var(--teal);
@@ -373,13 +385,13 @@
       <div class="field"><label>Number of VEs</label><input type="text"></div>
 
       <div class="block">2nd &amp; 3rd stage</div>
-      <div class="field"><label>Mode of delivery</label><input type="text"></div>
+      <div class="field"><label>Mode of delivery</label><input type="text" placeholder="SVD/CS and Alternative Birth Position(encourage A.P)"></div>
       <div class="field"><label>Duration (min)</label><input type="text"></div>
       <div class="field"><label>AMTSL</label><input type="text" placeholder="Y / N"></div>
       <div class="field"><label>Uterotonic &ndash; Oxytocin / other</label><input type="text"></div>
       <div class="field"><label>Placenta</label><input type="text" placeholder="Complete / incomplete"></div>
       <div class="field"><label>Placenta weight (g)</label><input type="text"></div>
-      <div class="field"><label>Blood loss (ml)</label><input type="text"></div>
+      <div class="field"><label>Blood loss (ml)</label><input type="text" placeholder="include mode of estimation-Drape/Measuring Jar/None"></div>
       <div class="field"><label>Perineal tear / episiotomy</label><input type="text"></div>
       <div class="field"><label>Repair</label><input type="text" placeholder="Y / N"></div>
 
@@ -396,13 +408,13 @@
       <div class="field"><label>Birth weight (g)</label><input type="text"></div>
       <div class="field"><label>Baby length</label><input type="text"></div>
       <div class="field"><label>Head circumference (cm)</label><input type="text"></div>
-      <div class="field"><label>Resuscitation</label><input type="text" placeholder="Y / N"></div>
+      <div class="field"><label>Resuscitation</label><input type="text" placeholder="Stimulation/Airway Clearing/BVM/CPR"></div>
       <div class="field"><label>Drugs given</label><input type="text" placeholder="Vit K / other"></div>
 
-      <div class="block">Delivery record</div>
+      <div class="block">Birth record</div>
       <div class="field"><label>Delivered by</label><input type="text"></div>
-      <div class="field"><label>Date of delivery</label><input type="text"></div>
-      <div class="field"><label>Time of delivery</label><input type="text"></div>
+      <div class="field"><label>Date of Birth</label><input type="text"></div>
+      <div class="field"><label>Time of Birth</label><input type="text"></div>
 
     </div>
   </section>
@@ -494,7 +506,7 @@ const steps = [
   {
     target: "tour-summary",
     title: "Summary of labour",
-    text: "Complete this box once labour is over: details of the 1st, 2nd and 3rd stages, the mother's condition at delivery, and the baby's condition, including who conducted the delivery, with date and time.",
+    text: "Complete this box once labour is over: details of the 1st, 2nd and 3rd stages, the mother's condition at delivery, and the baby's condition, including who conducted the delivery, with date and time.\nOn Resuscitation of the Baby indicate if:Stimulation,Airway Clearing,BVM,CPR.\nFor Blood Loss indicate the mode of estimation if:Drape,Measuring Jar,None",
     alert: "Remember: indicate BIRTH on the chart, and record the birth position in the Summary of Labour."
   },
 ];
